@@ -1,0 +1,30 @@
+.landing-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  padding-bottom: 100px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+  .logo-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+  }
+  .input-section {
+    flex: 1;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+    align-self: center;
+    justify-content: center;
+  }
+}

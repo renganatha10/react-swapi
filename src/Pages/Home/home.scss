@@ -1,0 +1,17 @@
+.home-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  .search-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+  .search-list-section {
+    flex: 1;
+    padding: 10px;
+    overflow: scroll;
+  }
+}
