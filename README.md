@@ -1,3 +1,5 @@
 # React Swapi
 
-### Under Development
+### Small Experiment Of React With SWapi API's
+
+Hosted at https://react-swapi.firebaseapp.com/
