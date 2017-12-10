@@ -4,6 +4,7 @@ import SearchList from './../../Components/SearchList/';
 import { connect } from 'react-redux';
 import { searchPlanets } from './../../redux/planets/actions';
 import { withRouter } from 'react-router-dom';
+import CheckAuthentication from './../../utils/checkAuthenitication';
 import './home.scss';
 
 class Landing extends PureComponent {
@@ -47,6 +48,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+const connectedLanding = connect(mapStateToProps, mapDispatchToProps)(
   withRouter(Landing)
 );
+
+export default CheckAuthentication(connectedLanding);

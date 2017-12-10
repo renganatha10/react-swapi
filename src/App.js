@@ -23,16 +23,24 @@ class App extends PureComponent {
   }
 
   componentWillMount() {
-    persistStore(this.store, {}, () => {
-      this.setState({ storePersisted: true });
-    });
+    persistStore(
+      this.store,
+      {
+        blacklist: ['planet']
+      },
+      () => {
+        this.setState({ storePersisted: true });
+      }
+    );
   }
   render() {
     return (
       <div className="app-wrapper">
-        <Provider store={this.store}>
-          <Router />
-        </Provider>
+        {this.state.storePersisted && (
+          <Provider store={this.store}>
+            <Router />
+          </Provider>
+        )}
       </div>
     );
   }

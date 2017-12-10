@@ -6,6 +6,12 @@
     font-size: 20px;
     color: salmon;
   }
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px 10px 0;
+  }
   .github-logo {
     width: 30px;
     height: 30px;

@@ -4,6 +4,7 @@ import Logo from './../../Components/Logo/';
 import Login from './../../Components/Login/';
 import { connect } from 'react-redux';
 import { authenticate } from './../../redux/user/actions';
+import redirectToHome from './../../utils/redirectToHome';
 import './landing.scss';
 
 class Landing extends PureComponent {
@@ -47,4 +48,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landing);
+const connectedLanding = connect(mapStateToProps, mapDispatchToProps)(Landing);
+export default redirectToHome(connectedLanding);

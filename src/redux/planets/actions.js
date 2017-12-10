@@ -46,7 +46,8 @@ export const searchPlanets = keyword => {
     dispatch(searchingPlanet());
     const { planet } = getState();
     const { planetsDictionary, planetsSearchDictionary } = planet;
-    const currentPlanet = planetsSearchDictionary[keyword];
+    const currentPlanet =
+      keyword !== '' ? planetsSearchDictionary[keyword] : [];
     currentPlanet && dispatch(updateCurrentPlanetList(currentPlanet));
     api.searchPlanet(keyword).then(searchResponse => {
       const { results } = searchResponse;
@@ -59,7 +60,7 @@ export const searchPlanets = keyword => {
         ...planetsSearchDictionary,
         [keyword]: results
       };
-      dispatch(updateCurrentPlanetList(results));
+      results.length > 1 && dispatch(updateCurrentPlanetList(results));
       dispatch(updatePlanetSearchDictionary(newPlanetSearchDictionary));
       dispatch(updatePlanetDictionary(newPlanetDictionary));
     });

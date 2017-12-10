@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import CheckAuthentication from './../../utils/checkAuthenitication';
 import './planetDetails.scss';
 
 class PlanetDetails extends PureComponent {
@@ -41,10 +42,11 @@ class PlanetDetails extends PureComponent {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log(props, 'props');
   return {
     planet: state.planet.planetsDictionary[props.match.params.id]
   };
 };
 
-export default connect(mapStateToProps)(PlanetDetails);
+const connectedProjectDetails = connect(mapStateToProps)(PlanetDetails);
+
+export default CheckAuthentication(connectedProjectDetails);

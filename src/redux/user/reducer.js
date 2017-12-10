@@ -2,7 +2,8 @@ import {
   LOGGED_IN_SUCCESS,
   PASSWORD_ERROR,
   USER_NOT_FOUND,
-  LOGGING_IN
+  LOGGING_IN,
+  LOGOUT
 } from './constants';
 
 const initialState = {
@@ -40,6 +41,8 @@ export default function(state = initialState, action) {
         userName: '',
         isLoading: false
       };
+    case LOGOUT:
+      return initialState;
     default:
       return initialState;
   }

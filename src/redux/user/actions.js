@@ -3,9 +3,17 @@ import {
   LOGGED_IN_SUCCESS,
   PASSWORD_ERROR,
   USER_NOT_FOUND,
-  LOGGING_IN
+  LOGGING_IN,
+  LOGOUT
 } from './constants';
+import events from './../../utils/events';
 
+export const logout = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: LOGOUT });
+    events.emit('logout');
+  };
+};
 export const noUserFound = () => {
   return {
     type: USER_NOT_FOUND
@@ -38,10 +46,14 @@ export const authenticate = (username, password) => {
       const { results } = searchResponse;
       if (results.length > 0) {
         const currentUser = results[0];
-        if (currentUser.birth_year === password) {
+        if (
+          username !== currentUser.name ||
+          currentUser.birth_year !== password
+        ) {
           dispatch(noUserFound());
         } else {
           dispatch(loggedInSuccess(username));
+          events.emit('pushroute', '/home/');
         }
       } else {
         dispatch(passwordIsWrong());

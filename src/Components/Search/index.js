@@ -10,7 +10,7 @@ export default class Search extends PureComponent {
     this.onSearch = this.onSearch.bind(this);
   }
   onSearch(e) {
-    this.props.onSearchPlanet(e.target.value);
+    window.setTimeout(this.props.onSearchPlanet(e.target.value), 1000);
   }
 
   render() {
@@ -24,6 +24,7 @@ export default class Search extends PureComponent {
             onChange={this.onSearch}
             type="text"
             placeholder="Find Planet"
+            autoFocus
           />
         </div>
       </div>
