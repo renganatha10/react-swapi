@@ -26,7 +26,7 @@ class App extends PureComponent {
     persistStore(
       this.store,
       {
-        blacklist: ['planet']
+        // blacklist: ['planet']
       },
       () => {
         this.setState({ storePersisted: true });

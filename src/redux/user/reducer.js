@@ -44,6 +44,6 @@ export default function(state = initialState, action) {
     case LOGOUT:
       return initialState;
     default:
-      return initialState;
+      return state;
   }
 }

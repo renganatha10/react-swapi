@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import './search.scss';
 
 const planet = require('./../../assests/planet.svg');
@@ -9,6 +10,7 @@ export default class Search extends PureComponent {
     super(props);
     this.onSearch = this.onSearch.bind(this);
   }
+
   onSearch(e) {
     window.setTimeout(this.props.onSearchPlanet(e.target.value), 1000);
   }
@@ -31,3 +33,7 @@ export default class Search extends PureComponent {
     );
   }
 }
+
+Search.propTypes = {
+  onSearchPlanet: PropTypes.func
+};

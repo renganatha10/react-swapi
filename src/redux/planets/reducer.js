@@ -3,14 +3,18 @@ import {
   UPDATE_CURRENT_PLANET_DICTIONARY,
   SEARCHING_PLANET,
   UPDATE_CURRENT_PLANET,
-  UPDATE_VIEW_LIST
+  UPDATE_CURRRENT_KEYWORD,
+  IS_LOADING_MORE,
+  UPDATE_NEXT_URL
 } from './constants';
 
 const initialState = {
   planetsSearchDictionary: {},
   planetsDictionary: {},
-  currentPlanetList: [],
   isLoading: false,
+  currentKeyword: '',
+  isLoadingMore: false,
+  nextUrl: null,
   currentPlanet: null
 };
 
@@ -22,19 +26,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        planetsDictionary: action.newPlanets
+        planetsDictionary: action.newPlanets,
+        isLoadingMore: true
       };
     case UPDATE_PLANETS_SEARCH_DICTIONARY:
       return {
         ...state,
         isLoading: false,
-        planetsSearchDictionary: action.newPlanets
-      };
-    case UPDATE_VIEW_LIST:
-      return {
-        ...state,
-        isLoading: false,
-        currentPlanetList: action.currentPlanets
+        planetsSearchDictionary: action.newPlanets,
+        isLoadingMore: true
       };
     case UPDATE_CURRENT_PLANET:
       return {
@@ -42,6 +42,18 @@ export default function(state = initialState, action) {
         isLoading: false,
         currentPlanet: action.planet
       };
+    case IS_LOADING_MORE:
+      return {
+        ...state,
+        isLoadingMore: true
+      };
+    case UPDATE_NEXT_URL:
+      return {
+        ...state,
+        nextUrl: action.url
+      };
+    case UPDATE_CURRRENT_KEYWORD:
+      return { ...state, currentKeyword: action.keyword };
     default:
       return state;
   }

@@ -3,7 +3,9 @@ import {
   UPDATE_CURRENT_PLANET_DICTIONARY,
   SEARCHING_PLANET,
   UPDATE_CURRENT_PLANET,
-  UPDATE_VIEW_LIST
+  UPDATE_CURRRENT_KEYWORD,
+  IS_LOADING_MORE,
+  UPDATE_NEXT_URL
 } from './constants';
 import * as api from './../api';
 
@@ -21,13 +23,6 @@ export const updatePlanetDictionary = newPlanets => {
   };
 };
 
-export const updateCurrentPlanetList = currentPlanets => {
-  return {
-    type: UPDATE_VIEW_LIST,
-    currentPlanets
-  };
-};
-
 export const searchingPlanet = () => {
   return {
     type: SEARCHING_PLANET
@@ -41,16 +36,35 @@ export const updatePlanets = planet => {
   };
 };
 
+export const updateCurrentKeyword = keyword => {
+  return {
+    type: UPDATE_CURRRENT_KEYWORD,
+    keyword
+  };
+};
+
+export const isLoadingMore = () => {
+  return {
+    type: IS_LOADING_MORE
+  };
+};
+
+export const updateNextUrl = url => {
+  return {
+    type: UPDATE_NEXT_URL,
+    url
+  };
+};
+
 export const searchPlanets = keyword => {
   return (dispatch, getState) => {
     dispatch(searchingPlanet());
+    dispatch(updateCurrentKeyword(keyword));
     const { planet } = getState();
     const { planetsDictionary, planetsSearchDictionary } = planet;
-    const currentPlanet =
-      keyword !== '' ? planetsSearchDictionary[keyword] : [];
-    currentPlanet && dispatch(updateCurrentPlanetList(currentPlanet));
     api.searchPlanet(keyword).then(searchResponse => {
-      const { results } = searchResponse;
+      const { results, next } = searchResponse;
+      dispatch(updateNextUrl(next));
       let newPlanetDictionary = planetsDictionary;
       results.forEach(item => {
         const id = item.url.split('/')[5];
@@ -60,10 +74,38 @@ export const searchPlanets = keyword => {
         ...planetsSearchDictionary,
         [keyword]: results
       };
-      results.length > 1 && dispatch(updateCurrentPlanetList(results));
       dispatch(updatePlanetSearchDictionary(newPlanetSearchDictionary));
       dispatch(updatePlanetDictionary(newPlanetDictionary));
     });
+  };
+};
+
+export const loadMorePlanet = (url, keyword) => {
+  return (dispatch, getState) => {
+    dispatch(isLoadingMore());
+    fetch(url)
+      .then(r => r.json())
+      .then(searchResponse => {
+        const { planet } = getState();
+        const { planetsSearchDictionary, planetsDictionary } = planet;
+        const { results, next } = searchResponse;
+        dispatch(updateNextUrl(next));
+        let newPlanetDictionary = planetsDictionary;
+        results.forEach(item => {
+          const id = item.url.split('/')[5];
+          newPlanetDictionary = { ...newPlanetDictionary, [id]: item };
+        });
+        const appendedLoadedMoreResults = [
+          ...planetsSearchDictionary[keyword],
+          ...results
+        ];
+        const newPlanetSearchDictionary = {
+          ...planetsSearchDictionary,
+          [keyword]: appendedLoadedMoreResults
+        };
+        dispatch(updatePlanetSearchDictionary(newPlanetSearchDictionary));
+        dispatch(updatePlanetDictionary(newPlanetDictionary));
+      });
   };
 };
 
