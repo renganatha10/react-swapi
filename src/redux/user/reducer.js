@@ -1,23 +1,20 @@
-import {
-  LOGGED_IN_SUCCESS,
-  PASSWORD_ERROR,
-  USER_NOT_FOUND,
-  LOGGING_IN,
-  LOGOUT
-} from './constants';
+// @flow
 
-const initialState = {
+import type { User } from './../../types';
+import type { UserAction } from './types';
+
+const initialState: User = {
   isLoggedin: false,
   userName: '',
   errorMessage: '',
   isLoading: false
 };
 
-export default function(state = initialState, action) {
+export default function(state: User = initialState, action: UserAction): User {
   switch (action.type) {
-    case LOGGING_IN:
-      return { state, isLoading: true };
-    case LOGGED_IN_SUCCESS:
+    case 'LOGGING_IN':
+      return { ...state, isLoading: true };
+    case 'LOGGED_IN_SUCCESS':
       return {
         ...state,
         isLoggedin: true,
@@ -25,7 +22,7 @@ export default function(state = initialState, action) {
         userName: action.userName,
         isLoading: false
       };
-    case PASSWORD_ERROR:
+    case 'PASSWORD_ERROR':
       return {
         ...state,
         isLoggedin: false,
@@ -33,7 +30,7 @@ export default function(state = initialState, action) {
         userName: '',
         isLoading: false
       };
-    case USER_NOT_FOUND:
+    case 'USER_NOT_FOUND':
       return {
         ...state,
         isLoggedin: false,
@@ -41,7 +38,7 @@ export default function(state = initialState, action) {
         userName: '',
         isLoading: false
       };
-    case LOGOUT:
+    case 'LOGOUT':
       return initialState;
     default:
       return state;

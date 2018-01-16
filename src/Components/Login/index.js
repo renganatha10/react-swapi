@@ -1,34 +1,49 @@
+// @flow
 import React, { PureComponent } from 'react';
 import './login.scss';
-import PropTypes from 'prop-types';
 import Spinner from './../Spinner';
 const r2dr = require('./../../assests/r2d2.svg');
 const dob = require('./../../assests/dob.svg');
 
-export default class Login extends PureComponent {
-  constructor(props) {
+type State = {
+  userName: string,
+  password: string
+};
+
+type User = {|
+  errorMessage: string,
+  isLoggedin: boolean,
+  userName: string,
+  isLoading: boolean
+|};
+
+type Props = {
+  user: User,
+  authenticate: (name: string, password: string) => void
+};
+
+export default class Login extends PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       userName: '',
       password: ''
     };
-    this.onChangeUserName = this.onChangeUserName.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChangeUserName(e) {
-    this.setState({ userName: e.target.value });
-  }
+  onChangeUserName = (e: SyntheticEvent<HTMLInputElement>) => {
+    const inputElement: HTMLInputElement = e.currentTarget;
+    this.setState({ userName: inputElement.value });
+  };
 
-  onChangePassword(e) {
-    this.setState({ password: e.target.value });
-  }
+  onChangePassword = (e: SyntheticEvent<HTMLInputElement>) => {
+    this.setState({ password: e.currentTarget.value });
+  };
 
-  onSubmit(e) {
+  onSubmit = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.props.authenticate(this.state.userName, this.state.password);
-  }
+  };
 
   render() {
     return (
@@ -60,13 +75,3 @@ export default class Login extends PureComponent {
     );
   }
 }
-
-Login.propTypes = {
-  user: PropTypes.shape({
-    errorMessage: PropTypes.string,
-    isLoggedin: PropTypes.boolean,
-    userName: PropTypes.string,
-    isLoading: PropTypes.boolean
-  }),
-  authenticate: PropTypes.func
-};

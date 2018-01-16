@@ -1,46 +1,43 @@
+// @flow
 import * as api from '../api';
-import {
-  LOGGED_IN_SUCCESS,
-  PASSWORD_ERROR,
-  USER_NOT_FOUND,
-  LOGGING_IN,
-  LOGOUT
-} from './constants';
 import events from './../../utils/events';
+import type { UserAction } from './types';
+
+type Dispatch = (action: UserAction) => void;
 
 export const logout = () => {
-  return (dispatch, getState) => {
-    dispatch({ type: LOGOUT });
+  return (dispatch: Dispatch) => {
+    dispatch({ type: 'LOGOUT' });
     events.emit('logout');
   };
 };
-export const noUserFound = () => {
+export const noUserFound = (): UserAction => {
   return {
-    type: USER_NOT_FOUND
+    type: 'USER_NOT_FOUND'
   };
 };
 
-export const passwordIsWrong = () => {
+export const passwordIsWrong = (): UserAction => {
   return {
-    type: PASSWORD_ERROR
+    type: 'PASSWORD_ERROR'
   };
 };
 
-export const loggedInSuccess = userName => {
+export const loggedInSuccess = (userName: string): UserAction => {
   return {
-    type: LOGGED_IN_SUCCESS,
+    type: 'LOGGED_IN_SUCCESS',
     userName
   };
 };
 
-export const logginIn = () => {
+export const logginIn = (): UserAction => {
   return {
-    type: LOGGING_IN
+    type: 'LOGGING_IN'
   };
 };
 
-export const authenticate = (username, password) => {
-  return (dispatch, getState) => {
+export const authenticate = (username: string, password: string): any => {
+  return (dispatch: Dispatch) => {
     dispatch(logginIn());
     api.searchPeaple(username).then(searchResponse => {
       const { results } = searchResponse;

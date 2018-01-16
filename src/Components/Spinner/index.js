@@ -1,7 +1,12 @@
+// @flow
 import React from 'react';
 import './spinner.scss';
 
-const Loader = props => (
+type Props = {
+  small: boolean
+};
+
+const Loader = (props: Props) => (
   <div className={props.small ? 'small-loader' : 'big-loader'} />
 );
 

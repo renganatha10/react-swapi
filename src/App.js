@@ -1,3 +1,5 @@
+// @flow
+
 import React, { PureComponent } from 'react';
 import './App.scss';
 import Router from './router';
@@ -13,9 +15,14 @@ const enhancer = composeWithDevTools({ name: 'React-Swapi' })(
   autoRehydrate()
 );
 
-class App extends PureComponent {
+type Props = {};
+type State = {
+  storePersisted: boolean
+};
+
+class App extends PureComponent<Props, State> {
   store = createStore(rootReducer, enhancer);
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       storePersisted: false

@@ -1,19 +1,19 @@
+// @flow
+
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import './search.scss';
 
 const planet = require('./../../assests/planet.svg');
 const search = require('./../../assests/search.svg');
 
-export default class Search extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.onSearch = this.onSearch.bind(this);
-  }
+type Props = {
+  onSearchPlanet: string => void
+};
 
-  onSearch(e) {
-    window.setTimeout(this.props.onSearchPlanet(e.target.value), 1000);
-  }
+export default class Search extends PureComponent<Props, {}> {
+  onSearch = (e: SyntheticEvent<HTMLButtonElement>) => {
+    window.setTimeout(this.props.onSearchPlanet(e.currentTarget.value), 1000);
+  };
 
   render() {
     return (
@@ -33,7 +33,3 @@ export default class Search extends PureComponent {
     );
   }
 }
-
-Search.propTypes = {
-  onSearchPlanet: PropTypes.func
-};

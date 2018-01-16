@@ -1,3 +1,5 @@
+// @flow
+
 import {
   UPDATE_PLANETS_SEARCH_DICTIONARY,
   UPDATE_CURRENT_PLANET_DICTIONARY,
@@ -8,6 +10,9 @@ import {
   UPDATE_NEXT_URL
 } from './constants';
 import * as api from './../api';
+import type { Dictionary } from './../../types/index';
+
+type Dispatch = (action: any) => void;
 
 export const updatePlanetSearchDictionary = newPlanets => {
   return {
@@ -36,7 +41,7 @@ export const updatePlanets = planet => {
   };
 };
 
-export const updateCurrentKeyword = keyword => {
+export const updateCurrentKeyword = (keyword: string) => {
   return {
     type: UPDATE_CURRRENT_KEYWORD,
     keyword
@@ -49,7 +54,7 @@ export const isLoadingMore = () => {
   };
 };
 
-export const updateNextUrl = url => {
+export const updateNextUrl = (url: string) => {
   return {
     type: UPDATE_NEXT_URL,
     url
@@ -57,7 +62,7 @@ export const updateNextUrl = url => {
 };
 
 export const searchPlanets = keyword => {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState) => {
     dispatch(searchingPlanet());
     dispatch(updateCurrentKeyword(keyword));
     const { planet } = getState();
@@ -81,7 +86,7 @@ export const searchPlanets = keyword => {
 };
 
 export const loadMorePlanet = (url, keyword) => {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState) => {
     dispatch(isLoadingMore());
     fetch(url)
       .then(r => r.json())
@@ -110,7 +115,7 @@ export const loadMorePlanet = (url, keyword) => {
 };
 
 export const getPlanetById = id => {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState) => {
     const { planet } = getState();
     const { planetsDictionary } = planet;
     dispatch(updatePlanets(planetsDictionary[id]));

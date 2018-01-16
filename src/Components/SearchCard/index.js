@@ -1,19 +1,21 @@
+// @flow
 import React, { PureComponent } from 'react';
 import './searchcard.scss';
-import PropTypes from 'prop-types';
 
 const earth = require('./../../assests/earth.svg');
 const astronaut = require('./../../assests/astronaut.svg');
 
-export default class SearchCard extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.onCardClick = this.onCardClick.bind(this);
-  }
+type Props = {
+  planetName: string,
+  population: number,
+  onCardClick: number => void,
+  planetId: number
+};
 
-  onCardClick() {
+export default class SearchCard extends PureComponent<Props, {}> {
+  onCardClick = () => {
     this.props.onCardClick(this.props.planetId);
-  }
+  };
 
   render() {
     return (
@@ -41,8 +43,3 @@ export default class SearchCard extends PureComponent {
     );
   }
 }
-
-SearchCard.propTypes = {
-  planetName: PropTypes.string,
-  population: PropTypes.string
-};

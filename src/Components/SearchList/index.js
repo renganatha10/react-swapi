@@ -7,6 +7,7 @@ import './searchlist.scss';
 export default class SearchList extends PureComponent {
   render() {
     const { isPlanetLoading, planetList } = this.props;
+    console.log(planetList, 'Planet List');
     if (isPlanetLoading)
       return (
         <div className="searchlist-container">

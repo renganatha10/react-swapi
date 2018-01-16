@@ -1,33 +1,46 @@
-import React, { Fragment, Component } from 'react';
+// @flow
+
+import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import event from './../../utils/events';
+import type { Location, History } from 'react-router-dom';
 import './header.scss';
 import { logout } from './../../redux/user/actions';
 const Close = require('./../../assests/close.svg');
 
-class Header extends Component {
-  constructor(props) {
+type Props = {
+  dispatch: (() => {}) => void,
+  children: React.Node,
+  location: Location,
+  history: History
+};
+
+type State = {
+  render: boolean
+};
+
+class Header extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.logout = this.logout.bind(this);
     this.state = {
       render: false
     };
   }
 
   componentWillMount() {
-    event.on('pushroute', (routename: string) => {
+    event.on('pushroute', (routename: string): void => {
       this.props.history.push(routename);
     });
 
-    event.on('logout', () => {
+    event.on('logout', (): void => {
       this.props.history.replace('/');
     });
   }
 
-  logout() {
+  logout = () => {
     this.props.dispatch(logout());
-  }
+  };
 
   componentWillUnmount() {
     event.removeAllListeners();
@@ -35,10 +48,10 @@ class Header extends Component {
 
   render() {
     return (
-      <Fragment>
+      <React.Fragment>
         <nav className="header">
           {' '}
-          <div>React - Swapi</div>{' '}
+          <div>React - Swapi</div>
           <div>
             {this.props.location.pathname !== '/' && (
               <button title="Log Out" onClick={this.logout}>
@@ -72,7 +85,7 @@ class Header extends Component {
           </div>{' '}
         </nav>{' '}
         {this.props.children}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
