@@ -6,6 +6,11 @@
     font-size: 20px;
     color: salmon;
   }
+
+  .heading {
+    padding-left: 10px;
+  }
+
   button {
     background-color: transparent;
     border: none;
@@ -15,5 +20,15 @@
   .github-logo {
     width: 30px;
     height: 30px;
+  }
+
+  .leftContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      font-size: 20px;
+      padding-top: 10px;
+    }
   }
 }

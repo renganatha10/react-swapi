@@ -54,6 +54,8 @@ export default function(state = initialState, action) {
       };
     case UPDATE_CURRRENT_KEYWORD:
       return { ...state, currentKeyword: action.keyword };
+    case 'LOGOUT':
+      return initialState;
     default:
       return state;
   }

@@ -13,18 +13,18 @@ type Props = {
   dispatch: (() => {}) => void,
   children: React.Node,
   location: Location,
-  history: History
+  history: History,
 };
 
 type State = {
-  render: boolean
+  render: boolean,
 };
 
 class Header extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      render: false
+      render: false,
     };
   }
 
@@ -47,15 +47,18 @@ class Header extends React.PureComponent<Props, State> {
   }
 
   render() {
+    console.log(this.props.location.pathname.includes('/planet'));
+
     return (
       <React.Fragment>
         <nav className="header">
-          {' '}
-          <div>React - Swapi</div>
-          <div>
+          <div className="leftContainer">
+            <h1 className="heading">React - Swapi</h1>
+          </div>
+          <div className="leftContainer">
             {this.props.location.pathname !== '/' && (
               <button title="Log Out" onClick={this.logout}>
-                <img src={Close} alt="close" />
+                <span>Logout</span>
               </button>
             )}
             <a
@@ -92,7 +95,7 @@ class Header extends React.PureComponent<Props, State> {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    dispatch,
   };
 }
 
