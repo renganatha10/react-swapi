@@ -7,19 +7,19 @@ const dob = require('./../../assests/dob.svg');
 
 type State = {
   userName: string,
-  password: string
+  password: string,
 };
 
 type User = {|
   errorMessage: string,
   isLoggedin: boolean,
   userName: string,
-  isLoading: boolean
+  isLoading: boolean,
 |};
 
 type Props = {
   user: User,
-  authenticate: (name: string, password: string) => void
+  authenticate: (name: string, password: string) => void,
 };
 
 export default class Login extends PureComponent<Props, State> {
@@ -27,7 +27,7 @@ export default class Login extends PureComponent<Props, State> {
     super(props);
     this.state = {
       userName: '',
-      password: ''
+      password: '',
     };
   }
 
@@ -51,6 +51,7 @@ export default class Login extends PureComponent<Props, State> {
         <div className="input-wrapper">
           <img src={r2dr} alt="logo" />
           <input
+            id="username"
             onChange={this.onChangeUserName}
             type="text"
             value={this.state.userName}
@@ -60,6 +61,7 @@ export default class Login extends PureComponent<Props, State> {
         <div className="input-wrapper">
           <img src={dob} alt="logo" />
           <input
+            id="password"
             onChange={this.onChangePassword}
             type="text"
             value={this.state.password}

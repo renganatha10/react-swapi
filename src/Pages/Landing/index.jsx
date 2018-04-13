@@ -12,7 +12,7 @@ class Landing extends PureComponent {
     return (
       <div className="landing-container">
         <div className="logo-section">
-          <Logo />{' '}
+          <Logo />
         </div>
         <div className="input-section">
           <Login
@@ -30,21 +30,21 @@ Landing.propTypes = {
     errorMessage: PropTypes.string,
     isLoggedin: PropTypes.boolean,
     userName: PropTypes.string,
-    isLoading: PropTypes.boolean
+    isLoading: PropTypes.boolean,
   }),
-  authenticate: PropTypes.func
+  authenticate: PropTypes.func,
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     authenticate: (username, password) =>
-      dispatch(authenticate(username, password))
+      dispatch(authenticate(username, password)),
   };
 };
 

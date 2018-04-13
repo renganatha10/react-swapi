@@ -55,7 +55,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "cypress:open": "cypress open"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -106,6 +107,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "cypress": "^2.1.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "flow-bin": "^0.62.0",
