@@ -1,9 +1,20 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
+
 import Landing from './../src/Pages/Landing/';
-import Home from './../src/Pages/Home/';
-import PlanetDetails from './../src/Pages/PlanetDetails/';
 import Header from './../src/Components/Header/';
+import Loader from './../src/Components/Spinner';
+
+const LoadableHome = Loadable({
+  loader: () => import('./../src/Pages/Home/'),
+  loading: Loader,
+});
+
+const LoadablePlanetDetails = Loadable({
+  loader: () => import('./../src/Pages/PlanetDetails/'),
+  loading: Loader,
+});
 
 class AppRouter extends React.PureComponent {
   render() {
@@ -12,8 +23,12 @@ class AppRouter extends React.PureComponent {
         <Header>
           <Switch>
             <Route exact={true} path="/" component={Landing} />
-            <Route exact={true} path="/home" component={Home} />
-            <Route exact={true} path="/planet/:id" component={PlanetDetails} />
+            <Route exact={true} path="/home" component={LoadableHome} />
+            <Route
+              exact={true}
+              path="/planet/:id"
+              component={LoadablePlanetDetails}
+            />
           </Switch>
         </Header>
       </BrowserRouter>
