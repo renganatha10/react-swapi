@@ -11,7 +11,7 @@ const user = {
   errorMessage: '',
   isLoggedin: true,
   userName: 'Renga',
-  isLoading: false
+  isLoading: false,
 };
 
 describe('Login suite', function() {
@@ -28,5 +28,15 @@ describe('Login suite', function() {
 
   it('should mount in a full DOM', function() {
     expect(mount(<Login user={user} />).find('.sw-login').length).toBe(1);
+  });
+
+  it('Should Simulate onChange', () => {
+    const wrapper = shallow(<Login user={user} />);
+
+    wrapper
+      .find('#username')
+      .simulate('change', { currentTarget: { value: 'Renga Again' } });
+
+    expect(wrapper.state('userName')).toBe('Renga Again');
   });
 });

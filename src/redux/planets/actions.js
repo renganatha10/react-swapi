@@ -1,5 +1,3 @@
-// @flow
-
 import {
   UPDATE_PLANETS_SEARCH_DICTIONARY,
   UPDATE_CURRENT_PLANET_DICTIONARY,
@@ -7,57 +5,56 @@ import {
   UPDATE_CURRENT_PLANET,
   UPDATE_CURRRENT_KEYWORD,
   IS_LOADING_MORE,
-  UPDATE_NEXT_URL
+  UPDATE_NEXT_URL,
 } from './constants';
 import * as api from './../api';
-import type { Dictionary } from './../../types/index';
 
 type Dispatch = (action: any) => void;
 
 export const updatePlanetSearchDictionary = newPlanets => {
   return {
     type: UPDATE_PLANETS_SEARCH_DICTIONARY,
-    newPlanets
+    newPlanets,
   };
 };
 
 export const updatePlanetDictionary = newPlanets => {
   return {
     type: UPDATE_CURRENT_PLANET_DICTIONARY,
-    newPlanets
+    newPlanets,
   };
 };
 
 export const searchingPlanet = () => {
   return {
-    type: SEARCHING_PLANET
+    type: SEARCHING_PLANET,
   };
 };
 
 export const updatePlanets = planet => {
   return {
     type: UPDATE_CURRENT_PLANET,
-    planet
+    planet,
   };
 };
 
 export const updateCurrentKeyword = (keyword: string) => {
   return {
     type: UPDATE_CURRRENT_KEYWORD,
-    keyword
+    keyword,
   };
 };
 
 export const isLoadingMore = () => {
   return {
-    type: IS_LOADING_MORE
+    type: IS_LOADING_MORE,
   };
 };
 
 export const updateNextUrl = (url: string) => {
   return {
     type: UPDATE_NEXT_URL,
-    url
+    url,
   };
 };
 
@@ -77,7 +74,7 @@ export const searchPlanets = keyword => {
       });
       const newPlanetSearchDictionary = {
         ...planetsSearchDictionary,
-        [keyword]: results
+        [keyword]: results,
       };
       dispatch(updatePlanetSearchDictionary(newPlanetSearchDictionary));
       dispatch(updatePlanetDictionary(newPlanetDictionary));
@@ -102,11 +99,11 @@ export const loadMorePlanet = (url, keyword) => {
         });
         const appendedLoadedMoreResults = [
           ...planetsSearchDictionary[keyword],
-          ...results
+          ...results,
         ];
         const newPlanetSearchDictionary = {
           ...planetsSearchDictionary,
-          [keyword]: appendedLoadedMoreResults
+          [keyword]: appendedLoadedMoreResults,
         };
         dispatch(updatePlanetSearchDictionary(newPlanetSearchDictionary));
         dispatch(updatePlanetDictionary(newPlanetDictionary));
